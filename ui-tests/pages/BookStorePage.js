@@ -1,30 +1,45 @@
 class BookStorePage {
   constructor(page) {
     this.page = page;
-    this.searchBox = '#searchBox';
-    this.bookTitle = 'text=Learning JavaScript Design Patterns';
-    this.titleCell = '(//div[@class="rt-tr-group"])[1]//a';
-    this.authorCell = '(//div[@class="rt-tr-group"])[1]//div[3]';
-    this.publisherCell = '(//div[@class="rt-tr-group"])[1]//div[4]';
+    this.searchInput = '#searchBox';
+    this.searchResult = '.rt-tbody'; // Table body that shows search results
+    this.firstBookRow = '.rt-tr-group:first-child'; // For getting first book details
   }
 
   async goToBookStore() {
-    await this.page.getByRole('button', { name: 'Book Store' }).click();
+    await this.page.goto('https://demoqa.com/books', {
+      waitUntil: 'domcontentloaded',
+      timeout: 60000
+    });
   }
 
   async searchBook(bookName) {
-    await this.page.fill(this.searchBox, bookName);
+    await this.page.fill(this.searchInput, bookName);
+    await this.page.waitForTimeout(1000);
   }
 
-  async validateSearchResult() {
-    await this.page.waitForSelector(this.bookTitle);
+  async getSearchResultText() {
+    const text = await this.page.locator(this.searchResult).textContent();
+    return text.trim();
+  }
+
+  async validateSearchResult(expectedBook) {
+    const text = await this.getSearchResultText();
+    if (!text.includes(expectedBook)) {
+      throw new Error(`Search validation failed. Expected: ${expectedBook}, Found: ${text}`);
+    }
   }
 
   async getBookDetails() {
+    const firstRow = this.page.locator(this.firstBookRow);
+    const title = await firstRow.locator('.rt-td:nth-child(2)').textContent();
+    const author = await firstRow.locator('.rt-td:nth-child(3)').textContent();
+    const publisher = await firstRow.locator('.rt-td:nth-child(4)').textContent();
+
     return {
-      title: await this.page.textContent(this.titleCell),
-      author: await this.page.textContent(this.authorCell),
-      publisher: await this.page.textContent(this.publisherCell)
+      title: title.trim(),
+      author: author.trim(),
+      publisher: publisher.trim()
     };
   }
 }

@@ -1,0 +1,17 @@
+{
+  "search": {
+    "books": [
+      "Learning JavaScript Design Patterns",
+      "Git Pocket Guide",
+      "Designing Evolvable Web APIs with ASP.NET",
+      "Speaking JavaScript",
+      "You Don't Know JS",
+      "Programming JavaScript Applications",
+      "Eloquent JavaScript",
+      "Understanding ECMAScript 6"
+    ]
+  },
+  "buttons": {
+    "logoutText": "Log out"
+  }
+}

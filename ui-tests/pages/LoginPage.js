@@ -13,10 +13,8 @@ class LoginPage {
       waitUntil: 'domcontentloaded',
       timeout: 60000
     });
-
     await this.page.getByText('Book Store Application').click();
   }
-
 
   async login(username, password) {
     await this.page.fill(this.usernameInput, username);
@@ -25,23 +23,19 @@ class LoginPage {
   }
 
   async validateLogin(expectedUsername) {
-  await this.page.waitForSelector(this.loggedUserName);
-
-  const actualUsername = await this.page.textContent(this.loggedUserName);
-
-  if (actualUsername.trim().toLowerCase() !== expectedUsername.toLowerCase()) {
-    throw new Error(
-      `Username validation failed. Expected: ${expectedUsername}, Found: ${actualUsername}`
-    );
+    await this.page.waitForSelector(this.loggedUserName);
+    const actualUsername = await this.page.textContent(this.loggedUserName);
+    if (actualUsername.trim().toLowerCase() !== expectedUsername.toLowerCase()) {
+      throw new Error(`Username validation failed. Expected: ${expectedUsername}, Found: ${actualUsername}`);
+    }
   }
 
-  await this.page.waitForSelector(this.logoutButton);
-}
-
-
-
   async logout() {
+    // Direct click on logout button
     await this.page.click(this.logoutButton);
+
+    // Wait for login page to appear to confirm logout
+    await this.page.waitForSelector('#login', { timeout: 10000 });
   }
 }
 
