@@ -1,4 +1,4 @@
-FinacPlus Automation Assignment
+## FinacPlus Automation Assignment
 
 UI and API automation framework built using Playwright.
 
