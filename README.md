@@ -29,5 +29,5 @@ npx playwright test ui-tests/tests/bookstore.spec.js
 npx playwright test api-tests/userApi.spec.js
 
 ## View Report
-npx playwright show-report
-Scrrenshorts are added in playright report and zip file also
+- npx playwright show-report
+- Scrrenshorts are added in playright report and zip file also
