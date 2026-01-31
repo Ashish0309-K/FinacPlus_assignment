@@ -5,7 +5,7 @@ const { LoginPage } = require('../pages/LoginPage');
 const { BookStorePage } = require('../pages/BookStorePage');
 const { writeBookDetails } = require('../utils/fileWriter');
 
-test('Book Store UI Automation - Assignment Ready', async ({ page }) => {
+test('Book Store UI Automation', async ({ page }) => {
   const loginPage = new LoginPage(page);
   const bookStore = new BookStorePage(page);
 

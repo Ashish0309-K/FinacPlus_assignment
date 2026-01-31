@@ -10,6 +10,7 @@ module.exports = defineConfig({
     browserName: 'chromium',
     baseURL: 'https://demoqa.com',
     screenshot: 'on',
+    trace: 'on',
     video: 'retain-on-failure'
   }
 });
